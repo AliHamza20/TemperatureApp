@@ -9,17 +9,21 @@ jobs:
     steps:
       - name: Checkout GitHub Repository
         uses: actions/checkout@v4
+
       - name: Setup Java Environment
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '11'
+
       - name: Build WAR using Maven
-        run: mvn clean package
+        run: .\mvnw clean package
+
       - name: Prepare WAR for Deployment
         run: |
-          mkdir output
-          cp target/*SNAPSHOT.war output/TemperatureApp.war
+          New-Item -ItemType Directory -Force -Path output
+          Copy-Item target\*.war output\TemperatureApp.war
+
       - name: Deploy WAR to Tomcat Docker Container
         run: |
           docker cp output/TemperatureApp.war tomcat_server:/usr/local/tomcat/webapps/TemperatureApp.war

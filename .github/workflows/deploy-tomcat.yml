@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch: # This explicitly enables the manual "Run workflow" button!
+
 jobs:
   deploy:
     runs-on: self-hosted

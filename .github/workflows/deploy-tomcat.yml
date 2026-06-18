@@ -17,7 +17,8 @@ jobs:
           java-version: '11'
 
       - name: Build WAR using Maven
-        run: .\mvnw clean package
+        run: mvn clean package
+        shell: cmd
 
       - name: Prepare WAR for Deployment
         run: |
